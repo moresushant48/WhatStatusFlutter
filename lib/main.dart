@@ -16,7 +16,6 @@ class MainHome extends StatefulWidget {
 class _MainHomeState extends State<MainHome> {
   @override
   Widget build(BuildContext context) {
-
     Screen.keepOn(true); // keeps screen on all the time.
 
     final isPlatformDark =
@@ -24,15 +23,14 @@ class _MainHomeState extends State<MainHome> {
     final initTheme = isPlatformDark ? ThemeData.dark() : ThemeData.light();
 
     return ThemeProvider(
-      initTheme: initTheme,
-      child: Builder(
-        builder: (context) {
-          return MaterialApp(
-            theme: ThemeProvider.of(context),
-            home: HomePage(),
-          );
-        },
-      )
-    );
+        initTheme: initTheme,
+        child: Builder(
+          builder: (context) {
+            return MaterialApp(
+              theme: ThemeProvider.of(context),
+              home: HomePage(),
+            );
+          },
+        ));
   }
 }
