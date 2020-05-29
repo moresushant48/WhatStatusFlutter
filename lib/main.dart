@@ -1,3 +1,4 @@
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:screen/screen.dart';
@@ -18,9 +19,20 @@ class _MainHomeState extends State<MainHome> {
 
     Screen.keepOn(true); // keeps screen on all the time.
 
-    return MaterialApp(
-      theme: ThemeData.dark(),
-      home: HomePage(),
+    final isPlatformDark =
+        WidgetsBinding.instance.window.platformBrightness == Brightness.dark;
+    final initTheme = isPlatformDark ? ThemeData.dark() : ThemeData.light();
+
+    return ThemeProvider(
+      initTheme: initTheme,
+      child: Builder(
+        builder: (context) {
+          return MaterialApp(
+            theme: ThemeProvider.of(context),
+            home: HomePage(),
+          );
+        },
+      )
     );
   }
 }
