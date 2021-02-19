@@ -48,11 +48,11 @@ class _HomePageState extends State<HomePage> {
             items: [
               BottomNavigationBarItem(
                 icon: Icon(Icons.image),
-                title: Text("Images"),
+                label: "Images",
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.video_library),
-                title: Text("Videos"),
+                label: "Videos",
               )
             ],
             onTap: (index) {

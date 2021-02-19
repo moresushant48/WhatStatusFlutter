@@ -1,7 +1,6 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:screen/screen.dart';
 import 'package:whatstatus_flutter/HomePage.dart';
 
 void main() {
@@ -16,8 +15,6 @@ class MainHome extends StatefulWidget {
 class _MainHomeState extends State<MainHome> {
   @override
   Widget build(BuildContext context) {
-    Screen.keepOn(true); // keeps screen on all the time.
-
     final isPlatformDark =
         WidgetsBinding.instance.window.platformBrightness == Brightness.dark;
     final initTheme = isPlatformDark ? ThemeData.dark() : ThemeData.light();
