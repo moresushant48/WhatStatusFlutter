@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:whatstatus_flutter/GetData.dart';
+import 'package:whatstatus_flutter/ViewMedia.dart';
 
 class VideosPage extends StatefulWidget {
   @override
@@ -11,9 +12,17 @@ class VideosPage extends StatefulWidget {
 }
 
 class _VideosPageState extends State<VideosPage> {
+  List<String> _videoList = [];
+
   @override
   void initState() {
     super.initState();
+
+    getVideos();
+  }
+
+  getVideos() async {
+    _videoList = await GetData.getVideos(context);
   }
 
   @override
@@ -47,20 +56,34 @@ class _VideosPageState extends State<VideosPage> {
                               child: SlideAnimation(
                                 verticalOffset: 100.0,
                                 child: FadeInAnimation(
-                                  child: Stack(
-                                    fit: StackFit.expand,
-                                    children: [
-                                      Image(
-                                        image: FileImage(File(
-                                            snapshot.data[index].toString())),
-                                        fit: BoxFit.cover,
-                                      ),
-                                      Icon(
-                                        Icons.play_circle_fill,
-                                        size: 40.0,
-                                        color: Colors.white,
-                                      )
-                                    ],
+                                  child: GestureDetector(
+                                    child: Stack(
+                                      fit: StackFit.expand,
+                                      children: [
+                                        Image(
+                                          image: FileImage(File(
+                                              snapshot.data[index].toString())),
+                                          fit: BoxFit.cover,
+                                        ),
+                                        Icon(
+                                          Icons.play_circle_fill,
+                                          size: 40.0,
+                                          color: Colors.white,
+                                        )
+                                      ],
+                                    ),
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => ViewMedia(
+                                                  dataList: _videoList,
+                                                  currentIndex: index,
+                                                  category:
+                                                      ViewMedia.CATEGORY_VIDEOS,
+                                                )),
+                                      );
+                                    },
                                   ),
                                 ),
                               ),

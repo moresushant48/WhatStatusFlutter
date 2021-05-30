@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:parallax_image/parallax_image.dart';
 import 'package:whatstatus_flutter/GetData.dart';
+import 'package:whatstatus_flutter/ViewMedia.dart';
 
 class ImagesPage extends StatefulWidget {
   @override
@@ -38,14 +39,27 @@ class _ImagesPageState extends State<ImagesPage> {
                     child: SlideAnimation(
                       verticalOffset: 100.0,
                       child: FadeInAnimation(
-                        child: ParallaxImage(
-                          extent: 100,
-                          color: Colors.blueGrey,
-                          image: FileImage(
-                            File(
-                              snapshot.data[index].toString(),
+                        child: GestureDetector(
+                          child: ParallaxImage(
+                            extent: 100,
+                            color: Colors.blueGrey,
+                            image: FileImage(
+                              File(
+                                snapshot.data[index].toString(),
+                              ),
                             ),
                           ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ViewMedia(
+                                        dataList: snapshot.data,
+                                        currentIndex: index,
+                                        category: ViewMedia.CATEGORY_IMAGES,
+                                      )),
+                            );
+                          },
                         ),
                       ),
                     ),
