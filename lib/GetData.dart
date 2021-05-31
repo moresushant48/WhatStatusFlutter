@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:path/path.dart' as Path;
 
 import 'package:ext_storage/ext_storage.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,7 +19,7 @@ class GetData {
   }
 
   static Future<List<String>> getThumbnail(List<String> data) async {
-    List<String> thumbList = new List<String>();
+    List<String> thumbList = [];
     for (var item in data) {
       thumbList.add(await Thumbnails.getThumbnail(
           videoFile: item, imageType: ThumbFormat.JPEG, quality: 30));
@@ -37,12 +38,23 @@ class GetData {
     directory = Directory(path);
 
     List<FileSystemEntity> list = await directory.list().toList();
-    List<String> pathList = List();
+    List<String> pathList = [];
 
     for (FileSystemEntity item in list) {
       pathList.add(item.path);
     }
     pathList.removeWhere((item) => item.endsWith('.nomedia'));
     return pathList;
+  }
+
+  static Future<void> copyMediaToDownloads(String path) async {
+    File file = File(path);
+    Directory dir = Directory(await ExtStorage.getExternalStorageDirectory() +
+        "/" +
+        ExtStorage.DIRECTORY_DOWNLOADS +
+        "/");
+    File newFile = await file.copy(dir.path + Path.basename(file.path));
+    print("In Downloads : " + newFile.path);
+    return;
   }
 }

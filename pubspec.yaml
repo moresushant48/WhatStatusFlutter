@@ -37,6 +37,7 @@ dependencies:
   pinch_zoom: ^0.0.4
   video_player: ^1.0.1
   chewie: ^0.12.2
+  share_plus: ^2.1.2
 
 dev_dependencies:
   flutter_test:

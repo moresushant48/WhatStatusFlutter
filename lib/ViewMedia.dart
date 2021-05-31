@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:pinch_zoom/pinch_zoom.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
+import 'package:whatstatus_flutter/FancyFab.dart';
 
 class ViewMedia extends StatefulWidget {
   static const String CATEGORY_IMAGES = "IMAGES";
@@ -83,6 +84,9 @@ class _ViewMediaState extends State<ViewMedia> {
             : Chewie(
                 controller: _chewieController,
               ),
+      ),
+      floatingActionButton: FancyFab(
+        data: widget.dataList[widget.currentIndex],
       ),
     );
   }
