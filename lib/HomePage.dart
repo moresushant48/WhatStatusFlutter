@@ -2,7 +2,6 @@ import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:whatstatus_flutter/ImagesPage.dart';
 import 'package:whatstatus_flutter/PermissionsManager.dart';
@@ -20,13 +19,9 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    checkPermission();
-  }
-
-  checkPermission() {
-    Permission.storage.isGranted.then((val) {
-      if (val) {
-        _isPermGranted = val;
+    permissionManager.checkPermission().then((value) {
+      if (value) {
+        _isPermGranted = value;
         setState(() {});
       }
     });
