@@ -2,6 +2,7 @@ import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:whatstatus_flutter/HomePage.dart';
+import 'package:one_context/one_context.dart';
 
 void main() {
   runApp(MainHome());
@@ -24,6 +25,8 @@ class _MainHomeState extends State<MainHome> {
         child: Builder(
           builder: (context) {
             return MaterialApp(
+              builder: OneContext().builder,
+              navigatorKey: OneContext().key,
               theme: ThemeProvider.of(context),
               home: HomePage(),
             );

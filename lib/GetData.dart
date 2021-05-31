@@ -1,9 +1,11 @@
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:path/path.dart' as Path;
 
 import 'package:ext_storage/ext_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:thumbnails/thumbnails.dart';
+import 'package:one_context/one_context.dart';
 
 class GetData {
   static Future<List> getImages(BuildContext context) async {
@@ -55,6 +57,9 @@ class GetData {
         "/");
     File newFile = await file.copy(dir.path + Path.basename(file.path));
     print("In Downloads : " + newFile.path);
+    OneContext.instance.showSnackBar(
+      builder: (_) => SnackBar(content: Text("Saved to Downloads.")),
+    );
     return;
   }
 }
