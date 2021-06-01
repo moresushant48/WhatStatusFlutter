@@ -28,9 +28,12 @@ class _ViewMediaState extends State<ViewMedia> {
   VideoPlayerController _videoPlayerController;
   ChewieController _chewieController;
 
+  int currentIndex;
+
   @override
   void initState() {
     super.initState();
+    this.currentIndex = widget.currentIndex;
     if (widget.category == ViewMedia.CATEGORY_VIDEOS)
       initializeVideoController(widget.currentIndex);
   }
@@ -71,22 +74,26 @@ class _ViewMediaState extends State<ViewMedia> {
                 ),
                 itemBuilder: (context, index, realIndex) {
                   initializeVideoController(index);
-                  return Container(
-                      height: MediaQuery.of(context).size.height,
-                      width: MediaQuery.of(context).size.width,
-                      child: PinchZoom(
-                        // fit: BoxFit.fitWidth,
-                        image:
-                            Image.file(File(widget.dataList[index].toString())),
-                      ));
+                  this.currentIndex = index;
+                  return Scaffold(
+                    backgroundColor: Colors.black,
+                    body: Container(
+                        height: MediaQuery.of(context).size.height,
+                        width: MediaQuery.of(context).size.width,
+                        child: PinchZoom(
+                          // fit: BoxFit.fitWidth,
+                          image: Image.file(
+                              File(widget.dataList[index].toString())),
+                        )),
+                    floatingActionButton: FancyFab(
+                      data: widget.dataList[this.currentIndex],
+                    ),
+                  );
                 },
               )
             : Chewie(
                 controller: _chewieController,
               ),
-      ),
-      floatingActionButton: FancyFab(
-        data: widget.dataList[widget.currentIndex],
       ),
     );
   }
