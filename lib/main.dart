@@ -1,6 +1,6 @@
-import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:theme_provider/theme_provider.dart';
 import 'package:whatstatus_flutter/HomePage.dart';
 import 'package:one_context/one_context.dart';
 
@@ -16,21 +16,19 @@ class MainHome extends StatefulWidget {
 class _MainHomeState extends State<MainHome> {
   @override
   Widget build(BuildContext context) {
-    final isPlatformDark =
-        WidgetsBinding.instance.window.platformBrightness == Brightness.dark;
-    final initTheme = isPlatformDark ? ThemeData.dark() : ThemeData.light();
-
     return ThemeProvider(
-        initTheme: initTheme,
+      saveThemesOnChange: true,
+      loadThemeOnInit: true,
+      child: ThemeConsumer(
         child: Builder(
-          builder: (context) {
-            return MaterialApp(
-              builder: OneContext().builder,
-              navigatorKey: OneContext().key,
-              theme: ThemeProvider.of(context),
-              home: HomePage(),
-            );
-          },
-        ));
+          builder: (themeContext) => MaterialApp(
+            builder: OneContext().builder,
+            navigatorKey: OneContext().key,
+            theme: ThemeProvider.themeOf(themeContext).data,
+            home: HomePage(),
+          ),
+        ),
+      ),
+    );
   }
 }
