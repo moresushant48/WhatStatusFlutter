@@ -95,6 +95,11 @@ class _ViewMediaState extends State<ViewMedia> {
                 controller: _chewieController,
               ),
       ),
+      floatingActionButton: widget.category == ViewMedia.CATEGORY_VIDEOS
+          ? FancyFab(
+              data: widget.dataList[this.currentIndex],
+            )
+          : null,
     );
   }
 
